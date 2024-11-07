@@ -1,5 +1,5 @@
 // lib/contentful.ts
-import { createClient, Entry } from 'contentful';
+import { createClient, Entry, EntrySkeletonType } from 'contentful';
 
 // Load environment variables (this will work if you're using Next.js or other frameworks that support it)
 const spaceId = process.env.CONTENTFUL_SPACE_ID!;
@@ -24,6 +24,11 @@ interface ContentfulArticleFields {
   };
 }
 
+// Extend EntrySkeletonType to define a compatible structure
+interface ContentfulArticleSkeleton extends EntrySkeletonType {
+  fields: ContentfulArticleFields;
+}
+
 export interface Article {
   id: string;
   title: string;
@@ -32,13 +37,13 @@ export interface Article {
   image: string | null;
 }
 
-// Use Contentful's `Entry` type with `ContentfulArticleFields`
+// Use Contentful's `Entry` type with `ContentfulArticleSkeleton`
 export async function fetchArticles(): Promise<Article[] | null> {
-  const response = await client.getEntries<ContentfulArticleFields>({
+  const response = await client.getEntries<ContentfulArticleSkeleton>({
     content_type: 'article',
   });
 
-  return response.items.map((item: Entry<ContentfulArticleFields>) => ({
+  return response.items.map((item: Entry<ContentfulArticleSkeleton>) => ({
     id: item.sys.id,
     title: item.fields.title,
     excerpt: item.fields.excerpt,
@@ -49,7 +54,7 @@ export async function fetchArticles(): Promise<Article[] | null> {
 
 export async function fetchArticleById(id: string): Promise<Article | null> {
   try {
-    const response = await client.getEntry<ContentfulArticleFields>(id);
+    const response = await client.getEntry<ContentfulArticleSkeleton>(id);
     return {
       id: response.sys.id,
       title: response.fields.title,
