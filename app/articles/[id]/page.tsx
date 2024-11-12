@@ -1,7 +1,4 @@
-export const config = {
-	runtime: 'edge',
-};
-
+export const runtime = 'edge';
 
 // app/articles/[id]/page.tsx
 import { fetchArticleById } from '../../../lib/contentful';
