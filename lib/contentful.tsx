@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 // lib/contentful.ts
 import { createClient, Entry, EntrySkeletonType } from 'contentful';
 
