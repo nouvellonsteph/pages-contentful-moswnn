@@ -40,11 +40,11 @@ export async function fetchArticles(){
 }
 
 export async function fetchArticleById(id: string) {
-  try {
+  //try {
     const response = await client.getEntry<ContentfulArticleSkeleton>(id);
     return response.fields;
-  } catch (error) {
-    console.error(`Error fetching article with ID ${id}:`, error);
-    return null;
-  }
+  //} catch (error) {
+  //  console.error(`Error fetching article with ID ${id}:`, error);
+  //  return null;
+  //}
 }
