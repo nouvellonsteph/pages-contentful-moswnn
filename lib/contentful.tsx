@@ -2,15 +2,15 @@
 import { createClient, Entry, EntrySkeletonType } from 'contentful';
 
 // Load environment variables (this will work if you're using Next.js or other frameworks that support it)
-const spaceId = process.env.CONTENTFUL_SPACE_ID!;
-const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN!;
+const spaceId = process.env.CONTENTFUL_SPACE_ID;
+const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN;
 
 const client = createClient({
   space: spaceId,
   accessToken: accessToken,
 });
 
-// Define the Contentful fields structure for an article
+// Define the Contentful fields structure for an article.  Note optional picture field.
 interface ContentfulArticleFields {
   title: string;
   excerpt: string;
@@ -39,6 +39,11 @@ export interface Article {
 
 // Use Contentful's `Entry` type with `ContentfulArticleSkeleton`
 export async function fetchArticles(): Promise<Article[] | null> {
+  if (!spaceId || !accessToken) {
+    console.error('Contentful Space ID or Access Token not found in environment variables.');
+    return null;
+  }
+
   const response = await client.getEntries<ContentfulArticleSkeleton>({
     content_type: 'article',
   });
@@ -53,6 +58,11 @@ export async function fetchArticles(): Promise<Article[] | null> {
 }
 
 export async function fetchArticleById(id: string): Promise<Article | null> {
+  if (!spaceId || !accessToken) {
+    console.error('Contentful Space ID or Access Token not found in environment variables.');
+    return null;
+  }
+
   try {
     const response = await client.getEntry<ContentfulArticleSkeleton>(id);
     return {
