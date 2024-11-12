@@ -10,6 +10,6 @@
   ],
   "rules": {
    // specify or tweak the rules
-    "next-on-pages/no-unsupported-configs": "warn"
+    "next-on-pages/no-unsupported-configs": "info"
   }
 }
