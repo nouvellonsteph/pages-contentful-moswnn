@@ -1,6 +1,8 @@
 // lib/contentful.ts
 import { createClient, EntrySkeletonType } from 'contentful';
 
+export const runtime = 'edge';
+
 // Load environment variables (this will work if you're using Next.js or other frameworks that support it)
 const spaceId = process.env.CONTENTFUL_SPACE_ID!;
 const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN!;
