@@ -42,7 +42,7 @@ export async function fetchArticles(){
 export async function fetchArticleById(id: string) {
   try {
     const response = await client.getEntry<ContentfulArticleSkeleton>(id);
-    return response.fields;
+    return response;
   } catch (error) {
     console.error(`Error fetching article with ID ${id}:`, error);
     return null;

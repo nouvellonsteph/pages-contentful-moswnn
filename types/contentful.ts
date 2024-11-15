@@ -5,6 +5,7 @@ export interface Article {
     };
     fields: {
       title: string;
+      content: string;
       excerpt: string;
       picture?: {
         fields: {
