@@ -35,6 +35,7 @@ type Params = Promise<{ id: string }>;
 export default async function ArticlePage({ params }: {params: Params}) {
   const { id } = await params
   const article: Article | null = await fetchArticleById(id);
+  //console.log(article)
 
   // Show 404 page if the article is not found
   if (!article) {
@@ -46,7 +47,7 @@ export default async function ArticlePage({ params }: {params: Params}) {
       <main className="container mx-auto px-4 py-8">
         <h1 className="text-4xl font-bold text-center my-4">{article.fields.title}</h1>
         <div className="flex justify-center mb-6">
-          {article.fields.picture && article.fields.picture.fields.file.url && (
+          {article.fields.picture && article.fields.picture.fields?.file.url && (
             <img
               src={article.fields.picture.fields.file.url}
               alt={article.fields.title}

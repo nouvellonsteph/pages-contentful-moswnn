@@ -6,11 +6,22 @@ export const runtime = 'edge';
 // Load environment variables (this will work if you're using Next.js or other frameworks that support it)
 const spaceId = process.env.CONTENTFUL_SPACE_ID!;
 const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN!;
+const CONTENTFUL_API_BASE = `https://cdn.contentful.com`;
 
 const client = createClient({
   space: spaceId,
   accessToken: accessToken,
 });
+
+async function fetchFromContentful(endpoint: string) {
+  const url = `${CONTENTFUL_API_BASE}/spaces/${spaceId}${endpoint}?access_token=${accessToken}`;
+  console.log(url);
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Contentful API error: ${response.statusText}`);
+  }
+  return await response.json();
+}
 
 // Define the Contentful fields structure for an article
 interface ContentfulArticleFields {
@@ -39,7 +50,7 @@ export async function fetchArticles(){
   return response.items
 }
 
-export async function fetchArticleById(id: string) {
+export async function AfetchArticleById(id: string) {
   try {
     const response = await client.getEntry<ContentfulArticleSkeleton>(id);
     return response;
@@ -47,4 +58,9 @@ export async function fetchArticleById(id: string) {
     console.error(`Error fetching article with ID ${id}:`, error);
     return null;
   }
+}
+
+export async function fetchArticleById(id: string) {
+  const data = await fetchFromContentful(`/environments/master/entries/${id}`);
+  return data;
 }
