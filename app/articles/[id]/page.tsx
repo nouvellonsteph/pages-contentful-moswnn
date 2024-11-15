@@ -35,7 +35,6 @@ type Params = Promise<{ id: string }>;
 export default async function ArticlePage({ params }: {params: Params}) {
   const { id } = await params
   const article: Article | null = await fetchArticleById(id);
-  //console.log(article)
 
   // Show 404 page if the article is not found
   if (!article) {

@@ -1,7 +1,7 @@
 // lib/contentful.ts
 import { createClient, EntrySkeletonType } from 'contentful';
 
-export const runtime = 'edge';
+//export const runtime = 'edge';
 
 // Load environment variables (this will work if you're using Next.js or other frameworks that support it)
 const spaceId = process.env.CONTENTFUL_SPACE_ID!;
@@ -15,7 +15,6 @@ const client = createClient({
 
 async function fetchFromContentful(endpoint: string) {
   const url = `${CONTENTFUL_API_BASE}/spaces/${spaceId}${endpoint}?access_token=${accessToken}`;
-  console.log(url);
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Contentful API error: ${response.statusText}`);
