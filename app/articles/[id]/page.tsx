@@ -9,7 +9,7 @@ export const runtime = 'edge';
 type Params = Promise<{ id: string }>;
 
 // This function will be called at build time to pre-render pages for each article
-export async function generateStaticParams(): Promise<{ id: string }[]> {
+/*export async function generateStaticParams(): Promise<{ id: string }[]> {
   try {
     const articles = await fetchArticles();
 
@@ -29,7 +29,7 @@ export async function generateStaticParams(): Promise<{ id: string }[]> {
   } finally {
     return [];
   }
-}
+}*/
 
 
 export default async function ArticlePage({ params }: {params: Params}) {
