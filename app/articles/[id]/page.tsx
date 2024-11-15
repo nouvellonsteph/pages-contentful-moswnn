@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { Article } from '../../../types/contentful';
 
 export const dynamicParams = false;
-//export const runtime = 'edge';
+export const runtime = 'edge';
 
 type Params = Promise<{ id: string }>;
 
